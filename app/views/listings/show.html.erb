@@ -7,14 +7,14 @@
   <br/>
   
   <% if @listing.images.any? %>
-    <div class="flex gap-8 rounded-lg overflow-hidden relative">
+    <div class="flex flex-col md:flex-row gap-8 rounded-lg overflow-hidden relative">
       <!-- Large image on the left -->
-      <%= image_tag @listing.images.first, class: "w-80 h-80" %>
+      <%= image_tag @listing.images.first, class: "md:w-80 h-80 object-cover" %>
 
       <!-- Grid of smaller images on the right -->
-      <div class="grid grid-cols-2 gap-8 flex-wrap">
+      <div class="grid grid-cols-4 md:grid-cols-2 gap-8 flex-wrap">
         <% @listing.images[1..4].each do |image| %>
-          <%= image_tag image, class: "h-36" %>
+          <%= image_tag image, class: "h-20 w-20 md:w-full md:h-36 object-cover" %>
         <% end %>
       </div>
 

@@ -26,10 +26,19 @@
     <%= form.rich_text_area :description, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
+  <div class="my-5" data-controller="image-upload" data-image-upload-url-value="<%= listings_file_uploads_path %>">
     <%= form.label :images %>
-    <%= form.file_field :images, multiple: true, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.file_field :images, multiple: true, 
+      class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
+      direct_upload: true, data: { image_upload_target: "input", action: "image-upload#fileAdded" } %>
+    <br/>
+    <div data-image-upload-target="preview" class="flex flex-wrap gap-8" id="image-previews">
+      <% listing.images.each do |image| %>
+        <%= render "listings/file_uploads/image", image: image.blob %>
+      <% end %>
+    </div>
   </div>
+
   <div class="grid grid-cols-3 gap-8 my-5">
     <div class="">
       <%= form.label :bedrooms %>
@@ -42,7 +51,6 @@
     </div>
     <div class="">
       <%= form.label :people_limit %>
-      <span class="text-xs"> (suggested 1 per bedroom) </span>
       <%= form.number_field :people_limit, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", min:0 %>
     </div>
   </div>
