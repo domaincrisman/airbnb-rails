@@ -1,6 +1,6 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy photos]
-
+  before_action :redirect_to_signup, only: ["new", "create"]
   # GET /listings or /listings.json
   def index
     @listings = Listing.all
@@ -61,6 +61,10 @@ class ListingsController < ApplicationController
   end
 
   private
+
+    def redirect_to_signup
+      redirect_to owner_signup_path
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_listing
       @listing = Listing.friendly.find(params[:id])

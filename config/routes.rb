@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :listings do
     get "photos", to: "listings#photos", on: :member
   end
+
+  resource :settings, only: [:show, :create]
+  resource :owner_signup, only: [:show], controller: :owner_signup 
 
   namespace :listings do
     resource :file_uploads, only: [:create]
