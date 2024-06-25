@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_13_122157) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_20_143951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -72,7 +72,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_122157) do
     t.integer "bedrooms"
     t.integer "bathrooms"
     t.integer "people_limit"
+    t.bigint "user_id"
     t.index ["slug"], name: "index_listings_on_slug", unique: true
+    t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,10 +93,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_13_122157) do
     t.string "state"
     t.string "country"
     t.string "zipcode"
+    t.string "stripe_account_id"
+    t.integer "stripe_status", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "webhook_events", force: :cascade do |t|
+    t.text "data"
+    t.string "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "listings", "users"
 end

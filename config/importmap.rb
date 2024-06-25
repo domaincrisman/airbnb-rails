@@ -14,3 +14,4 @@ pin "@fortawesome/free-regular-svg-icons", to: "@fortawesome--free-regular-svg-i
 pin "@fortawesome/free-solid-svg-icons", to: "@fortawesome--free-solid-svg-icons.js" # @6.5.2
 pin "@rails/activestorage", to: "@rails--activestorage.js" # @7.1.3
 pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.9
+pin "@stripe/connect-js", to: "@stripe--connect-js.js" # @3.3.6

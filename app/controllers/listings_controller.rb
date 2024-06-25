@@ -1,6 +1,8 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy photos]
   before_action :redirect_to_signup, only: ["new", "create"]
+  before_action :authorize_owner, only: ["edit", "update", "destroy"]
+
   # GET /listings or /listings.json
   def index
     @listings = Listing.all
@@ -12,7 +14,7 @@ class ListingsController < ApplicationController
 
   # GET /listings/new
   def new
-    @listing = Listing.new
+    @listing = current_user.listings.new
   end
 
   # GET /listings/1/edit
@@ -21,7 +23,7 @@ class ListingsController < ApplicationController
 
   # POST /listings or /listings.json
   def create
-    @listing = Listing.new(listing_params)
+    @listing = current_user.listings.new(listing_params)
 
     respond_to do |format|
       if @listing.save
@@ -62,8 +64,13 @@ class ListingsController < ApplicationController
 
   private
 
+    def authorize_owner
+      redirect_to(root_path, alert: "You are not allowed to view this page") if current_user != @listing.user
+    end  
+    
     def redirect_to_signup
-      redirect_to owner_signup_path
+      return redirect_to(new_user_session_path, alert: "You must sign in before you can create a listing") if !current_user
+      redirect_to owner_signup_path if current_user.stripe_status == "pending"
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_listing

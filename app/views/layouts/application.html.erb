@@ -3,6 +3,7 @@
   <head>
     <title>AirbnbRails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="stripe-pk" content="<%= Rails.application.credentials.dig(:stripe, :pk) %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -13,6 +14,7 @@
 
   <body>
     <%= render "layouts/navbar" %>
+    <%= render "layouts/alerts" %>
     <main class="container mx-auto mt-28 pb-20 px-5 flex">
       <%= yield %>
     </main>

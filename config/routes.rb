@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   end
 
   resource :settings, only: [:show, :create]
-  resource :owner_signup, only: [:show], controller: :owner_signup 
+  resource :owner_signup, only: [:show, :create], controller: :owner_signup 
+
+  namespace :stripe do
+    resource :account_sessions, only: [:create]
+    resource :webhook_events, only: [:create]
+  end
 
   namespace :listings do
     resource :file_uploads, only: [:create]
