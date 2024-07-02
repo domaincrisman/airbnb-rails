@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_20_143951) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_190927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,6 +73,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_20_143951) do
     t.integer "bathrooms"
     t.integer "people_limit"
     t.bigint "user_id"
+    t.decimal "day_price"
+    t.decimal "weekly_price"
+    t.decimal "monthly_price"
     t.index ["slug"], name: "index_listings_on_slug", unique: true
     t.index ["user_id"], name: "index_listings_on_user_id"
   end

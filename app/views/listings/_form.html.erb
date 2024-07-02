@@ -53,6 +53,18 @@
       <%= form.label :people_limit %>
       <%= form.number_field :people_limit, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", min:0 %>
     </div>
+    <div class="">
+      <%= form.label :day_price, "Price/day" %>
+      <%= form.number_field :day_price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", min:0, placeholder: "100" %>
+    </div>
+    <div class="">
+      <%= form.label :weekly_price, "Price/week" %>
+      <%= form.number_field :weekly_price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", min:0, placeholder: "600" %>
+    </div>
+    <div class="">
+      <%= form.label :monthly_price, "Price/month" %>
+      <%= form.number_field :monthly_price, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", min:0, placeholder: "1200" %>
+    </div>
   </div>
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
